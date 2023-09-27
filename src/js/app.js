@@ -1,11 +1,7 @@
-// TODO: write code here
+import Widget from "./components/Widget/Widget";
 
-// comment this to pass build
-const unusedVariable = "variable";
-
-// for demonstration purpose only
-export default function demo(value) {
-  return `Demo: ${value}`;
+const start = () => {
+  const widger = new Widget();
 }
 
-console.log("app.js included");
+start();
