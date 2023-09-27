@@ -45,6 +45,13 @@ class Widget {
         this.widget.appendChild(this.form);
     }
 
+    updateImage(img, type) {
+        this.images.forEach((image) => {
+            image.classList.toggle('disabled');
+
+        });
+    }
+
     addValidators() {
         this.form.addEventListener('submit', (e) => {
             e.preventDefault();
@@ -55,6 +62,7 @@ class Widget {
         this.input.addEventListener('input', (e) => {
             const input = this.input.value;
             const validationResult = validateCardNumber(input);
+            this.updateImage()
         });
     }
 }
