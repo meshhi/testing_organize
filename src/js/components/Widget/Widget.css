@@ -1,0 +1,39 @@
+.widget {
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-template-columns: repeat(6, 39px);
+    gap: 0.2rem;
+}
+
+.widget__img {
+    width: 39px;
+    height: 25px;
+}
+
+.amex {
+    background: url("~/src/img/card-amex.gif") 0 0;
+}
+
+.diners {
+    background: url("~/src/img/card-diners.gif") 0 0;
+}
+
+.discover {
+    background: url("~/src/img/card-discover.gif") 0 0;
+}
+
+.jcb {
+    background: url("~/src/img/card-jcb.gif") 0 0;
+}
+
+.mastercard {
+    background: url("~/src/img/card-mastercard.gif") 0 0;
+}
+
+.visa {
+    background: url("~/src/img/card-visa.gif") 0 0;
+}
+
+.disabled {
+    background-position: 0 -25px;
+}

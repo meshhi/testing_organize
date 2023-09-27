@@ -1,7 +1,7 @@
 import Widget from "./components/Widget/Widget";
 
 const start = () => {
-  const widger = new Widget();
+  const widget = new Widget();
 }
 
 start();
