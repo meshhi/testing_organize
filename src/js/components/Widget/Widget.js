@@ -1,5 +1,5 @@
 import './Widget.css';
-import { validateCardNumber } from '../../utils';
+import { validateCardNumber, determinePaySystem } from '../../utils';
 
 function importAll(r) {
     return r.keys().map(r);
@@ -8,7 +8,7 @@ function importAll(r) {
 const images = importAll(require.context('../../../img/', false, /\.(gif|jpe?g|svg)$/));
 
 class Widget {
-    constructor() {
+    constructor(parentElement) {
         this.widget = document.createElement('div');
         this.widget.classList.add('widget');
         
@@ -16,7 +16,7 @@ class Widget {
         this.createInputForm();
         this.addValidators();
 
-        document.body.appendChild(this.widget);
+        parentElement.appendChild(this.widget);
     }
 
     createImages() {
@@ -48,21 +48,41 @@ class Widget {
     updateImage(img, type) {
         this.images.forEach((image) => {
             image.classList.toggle('disabled');
-
         });
     }
 
     addValidators() {
         this.form.addEventListener('submit', (e) => {
             e.preventDefault();
-            const input = this.input.value;
-            const validationResult = validateCardNumber(input);
+            const cardNumber = this.input.value;
+            if (cardNumber.length > 16) {
+                this.input.value = cardNumber.slice(0, 16);
+                return
+            }
+            const validationResult = validateCardNumber(cardNumber);
         });
 
         this.input.addEventListener('input', (e) => {
-            const input = this.input.value;
-            const validationResult = validateCardNumber(input);
-            this.updateImage()
+            const cardNumber = this.input.value;
+            if (cardNumber.length > 16) {
+                this.input.value = cardNumber.slice(0, 16);
+                return
+            }
+            const validationResult = validateCardNumber(cardNumber);
+            if (validationResult) {
+                this.images.forEach(image => {
+                    if (image.classList.contains(determinePaySystem(cardNumber)) && image.classList.contains('disabled')) {
+                        image.classList.toggle('disabled')
+                    }
+                })
+            } else {
+                this.images.forEach(image => {
+                    if (!image.classList.contains('disabled')) {
+                        image.classList.toggle('disabled')
+                    }
+                })
+            }
+            // this.updateImage()
         });
     }
 }
