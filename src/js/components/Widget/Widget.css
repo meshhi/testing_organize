@@ -1,8 +1,9 @@
 .widget {
     display: grid;
-    grid-template-rows: 1fr;
-    grid-template-columns: repeat(6, 39px);
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: repeat(7, 39px);
     gap: 0.2rem;
+    width: 400px;   
 }
 
 .widget__img {
@@ -34,6 +35,28 @@
     background: url("~/src/img/card-visa.gif") 0 0;
 }
 
+.mir {
+    background: url("~/src/img/card-mir.gif") 0 0;
+}
+
+
 .disabled {
     background-position: 0 -25px;
+}
+
+.widget__form {
+    grid-column: 1 / 8;
+    display: flex;
+}
+
+.widget__form_input {
+    flex: 3;
+}
+
+.widget__form_button {
+    flex: 1;
+    background-color: rgba(41, 233, 41, 0.918);
+    border-radius: 5px;
+    border: 0;
+    color: #fff;
 }

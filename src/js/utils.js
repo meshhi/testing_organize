@@ -23,11 +23,11 @@ export const cardNumberToSystemMapping = {
     '37': 'amex',
     '60': 'discover',
 }
-export const determinePaySystem = (cardNubmer) => {
+export const determinePaySystem = (cardNumber) => {
     const possibleSystems = [];
     for (let key in cardNumberToSystemMapping) {
         const regex = new RegExp(`^${key}`);
-        if(cardNubmer.match(regex)) {
+        if(cardNumber.match(regex)) {
             possibleSystems.push(key);
         }
     }

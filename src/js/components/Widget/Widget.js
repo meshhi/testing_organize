@@ -36,7 +36,9 @@ class Widget {
     createInputForm() {
         this.form = document.createElement('form');
         this.input = document.createElement('input');
+        this.input.classList.add('widget__form_input');
         this.button = document.createElement('button');
+        this.button.classList.add('widget__form_button');
         this.button.type = 'submit';
         this.button.textContent = 'Check';
         this.form.classList.add('widget__form');
@@ -45,45 +47,31 @@ class Widget {
         this.widget.appendChild(this.form);
     }
 
-    updateImage(img, type) {
-        this.images.forEach((image) => {
-            image.classList.toggle('disabled');
-        });
+    checkCardNumber = (e) => {
+        e.preventDefault();
+        this.images.forEach(image => {
+            if (!image.classList.contains('disabled')) {
+                image.classList.toggle('disabled')
+            }
+        })
+        const cardNumber = this.input.value;
+        if (cardNumber.length > 16) {
+            this.input.value = cardNumber.slice(0, 16);
+            return
+        }
+        const validationResult = validateCardNumber(cardNumber);
+        if (validationResult) {
+            this.images.forEach(image => {
+                if (image.classList.contains(determinePaySystem(cardNumber)) && image.classList.contains('disabled')) {
+                    image.classList.toggle('disabled')
+                }
+            })
+        }
     }
 
     addValidators() {
-        this.form.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const cardNumber = this.input.value;
-            if (cardNumber.length > 16) {
-                this.input.value = cardNumber.slice(0, 16);
-                return
-            }
-            const validationResult = validateCardNumber(cardNumber);
-        });
-
-        this.input.addEventListener('input', (e) => {
-            const cardNumber = this.input.value;
-            if (cardNumber.length > 16) {
-                this.input.value = cardNumber.slice(0, 16);
-                return
-            }
-            const validationResult = validateCardNumber(cardNumber);
-            if (validationResult) {
-                this.images.forEach(image => {
-                    if (image.classList.contains(determinePaySystem(cardNumber)) && image.classList.contains('disabled')) {
-                        image.classList.toggle('disabled')
-                    }
-                })
-            } else {
-                this.images.forEach(image => {
-                    if (!image.classList.contains('disabled')) {
-                        image.classList.toggle('disabled')
-                    }
-                })
-            }
-            // this.updateImage()
-        });
+        this.form.addEventListener('submit', this.checkCardNumber);
+        this.input.addEventListener('input', this.checkCardNumber);
     }
 }
 
