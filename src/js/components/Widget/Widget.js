@@ -55,10 +55,6 @@ class Widget {
             }
         })
         const cardNumber = this.input.value;
-        if (cardNumber.length > 16) {
-            this.input.value = cardNumber.slice(0, 16);
-            return
-        }
         const validationResult = validateCardNumber(cardNumber);
         if (validationResult) {
             this.images.forEach(image => {

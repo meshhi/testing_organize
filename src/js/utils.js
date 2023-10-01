@@ -1,6 +1,7 @@
 export const validateCardNumber = (cardNumber) => {
     let checkDigit = 0;
-    for (let i = cardNumber.length - 2; i >= 0; --i) {
+    debugger
+    for (let i = cardNumber.length - 2; i >= 0; i -= 1) {
         if (i % 2) {
             checkDigit += Number(cardNumber[i])
         } else {
